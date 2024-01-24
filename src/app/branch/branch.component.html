@@ -3,16 +3,28 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
+            <th></th>
+            <th></th>
+
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of branch">
             <td scope="row">{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td *ngIf="updatePermission"><button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+            <td *ngIf="updatePermission"><button class="btn btn-primary" (click)="editBranch(item)"><i
+                        class="bi bi-pencil-square"></i></button>
             </td>
-            <td *ngIf="deletePermission"><button class="btn btn-danger"><i class="bi bi-trash"></i></button></td>
+            <td *ngIf="deletePermission"><button class="btn btn-danger" (click)="deleteBranch(item)"><i
+                        class="bi bi-trash"></i></button></td>
         </tr>
 
     </tbody>
 </table>
+
+<div class="col-md-3" *ngIf="updateForm">
+    <input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Enter Name" />
+    <br>
+    <button (click)="updateBranch(name)" class="btn btn-success">Update</button>
+
+</div>

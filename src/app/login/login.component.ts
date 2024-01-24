@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -22,14 +23,18 @@ export class LoginComponent {
 
     let index = this.userData.findIndex(ele => ele.name === name && ele.password === pass)
     console.log(index);
+
     if (index == -1) {
-      alert("Enter Valid Details")
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: " Enter Valid Details!",
+      });
     }
     else {
       this.userData[index].isLoggedIn = true;
 
       localStorage.setItem("loggedInUser", JSON.stringify(this.userData[index]));
-
       this.route.navigate(['/dashboard'], { queryParams: { userRole: this.userData[index].userRole } });
     }
   }

@@ -6,6 +6,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { BranchComponent } from './branch/branch.component';
 import { CompanyComponent } from './company/company.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,9 +17,9 @@ const routes: Routes = [
       { path: 'employee', component: EmployeeComponent },
       { path: 'branch', component: BranchComponent },
       { path: 'company', component: CompanyComponent },
-
     ]
   },
+  { path: "**", component: PageNotFoundComponent }
 
 
 ];

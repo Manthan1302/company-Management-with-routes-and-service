@@ -13,6 +13,8 @@ import { BranchComponent } from './branch/branch.component';
 import { EmployeeService } from './services/employee.service';
 import { BranchService } from './services/branch.service';
 import { CompanyService } from './services/compny.service';
+import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,13 @@ import { CompanyService } from './services/compny.service';
     NavbarComponent,
     EmployeeComponent,
     CompanyComponent,
-    BranchComponent
+    BranchComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [EmployeeService, BranchService, CompanyService],
   bootstrap: [AppComponent]
