@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" [routerLink]="['employee']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact:true}" [queryParams]="{userRole:role}">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['company']" routerLinkActive="active"
+                        [queryParams]="{userRole:role}">Company</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['branch']" routerLinkActive="active"
+                        [queryParams]="{userRole:role}">Branch</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
