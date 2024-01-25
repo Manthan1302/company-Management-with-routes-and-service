@@ -13,12 +13,12 @@ export class BranchComponent {
   branch: { id: number, name: string }[] = []
   name!: string;
 
-  role: string | null = null;
+  // role: string | null = null;
   index: number | null = null;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
-  updateForm:boolean=false;
-
+  updateForm: boolean = false;
+  user!: User;
   constructor(private branchService: BranchService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -26,21 +26,22 @@ export class BranchComponent {
     //Add 'implements OnInit' to the class.
     this.branch = this.branchService.Branch;
     console.log(this.branch);
-    this.role = this.route.snapshot.queryParamMap.get('userRole');
+    // this.role = this.route.snapshot.queryParamMap.get('userRole');
+    let dataUser= localStorage.getItem('loggedInUser')
+    this.user = JSON.parse(dataUser!);
+    // console.log(this.role);
 
-    console.log(this.role);
 
 
-
-    if (this.role === "superAdmin") {
+    if (this.user.userRole  === "superAdmin") {
       this.updatePermission = true;
       this.deletePermission = true;
     }
-    if (this.role === "admin") {
+    if (this.user.userRole  === "admin") {
       this.updatePermission = true;
       this.deletePermission = false;
     }
-    if (this.role === "basicUser") {
+    if (this.user.userRole  === "basicUser") {
       this.updatePermission = false;
       this.deletePermission = false;
     }
@@ -76,7 +77,7 @@ export class BranchComponent {
   }
 
   editBranch(data: { id: number, name: string }) {
-    this.updateForm=true
+    this.updateForm = true
     this.index = this.branchService.Branch.findIndex(ele => {
       return ele.id === data.id && ele.name === ele.name
     })
@@ -110,7 +111,7 @@ export class BranchComponent {
 
         this.branch[this.index!].name = name
         this.name = "";
-        this.updateForm=false
+        this.updateForm = false
       }
     });
   }

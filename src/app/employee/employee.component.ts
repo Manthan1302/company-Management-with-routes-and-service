@@ -11,34 +11,37 @@ import Swal from 'sweetalert2'
 })
 export class EmployeeComponent {
 
-  name!:string ;
+  name!: string;
   employee: { id: number, name: string }[] = []
   index: number | null = null;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   role: string | null = null;
-  updateForm:boolean=false;
+  updateForm: boolean = false;
+  user!: User;
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.employee = this.employeeService.employee;
-
+    let dataUser= localStorage.getItem('loggedInUser')
+    this.user = JSON.parse(dataUser!);
     console.log(this.employee);
-    this.role = this.route.snapshot.queryParamMap.get('userRole');
+
+    // this.role = this.route.snapshot.queryParamMap.get('userRole');
 
 
 
-    if (this.role === "superAdmin") {
+    if (this.user.userRole === "superAdmin") {
       this.updatePermission = true;
       this.deletePermission = true;
     }
-    if (this.role === "admin") {
+    if (this.user.userRole  === "admin") {
       this.updatePermission = true;
       this.deletePermission = false;
     }
-    if (this.role === "basicUser") {
+    if (this.user.userRole  === "basicUser") {
       this.updatePermission = false;
       this.deletePermission = false;
     }
@@ -75,7 +78,7 @@ export class EmployeeComponent {
   }
 
   editEmployee(data: { id: number, name: string }) {
-    this.updateForm=true;
+    this.updateForm = true;
     this.index = this.employeeService.employee.findIndex(ele => {
       return ele.id === data.id && ele.name === ele.name
     })

@@ -15,10 +15,10 @@ export class CompanyComponent {
   name!: string;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
-  role: string | null = null;
+  // role: string | null = null;
   index: number | null = null;
   updateForm: boolean = false;
-
+  user!:User;
 
   constructor(private companyService: CompanyService, private route: ActivatedRoute) { }
 
@@ -28,19 +28,20 @@ export class CompanyComponent {
     // Add 'implements OnInit' to the class.
     this.company = this.companyService.Company;
     // console.log(this.company);
-    this.role = this.route.snapshot.queryParamMap.get('userRole');
+    // this.role = this.route.snapshot.queryParamMap.get('userRole');
+    let dataUser= localStorage.getItem('loggedInUser')
+    this.user = JSON.parse(dataUser!);
 
 
-
-    if (this.role === "superAdmin") {
+    if (this.user.userRole  === "superAdmin") {
       this.updatePermission = true;
       this.deletePermission = true;
     }
-    if (this.role === "admin") {
+    if (this.user.userRole  === "admin") {
       this.updatePermission = true;
       this.deletePermission = false;
     }
-    if (this.role === "basicUser") {
+    if (this.user.userRole  === "basicUser") {
       this.updatePermission = false;
       this.deletePermission = false;
     }

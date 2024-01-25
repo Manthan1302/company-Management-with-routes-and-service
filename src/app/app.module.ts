@@ -15,6 +15,8 @@ import { BranchService } from './services/branch.service';
 import { CompanyService } from './services/compny.service';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserService } from './services/user.service';
+import { AuthGuardService } from './services/authGuard.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppRoutingModule,
     FormsModule
   ],
-  providers: [EmployeeService, BranchService, CompanyService],
+  providers: [EmployeeService, BranchService, CompanyService,UserService,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

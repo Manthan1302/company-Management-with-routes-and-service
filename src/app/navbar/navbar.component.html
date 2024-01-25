@@ -5,18 +5,17 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" [routerLink]="['employee']" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{exact:true}" [queryParams]="{userRole:role}">Employee</a>
+                        [routerLinkActiveOptions]="{exact:true}" >Employee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['company']" routerLinkActive="active"
-                        [queryParams]="{userRole:role}">Company</a>
+                    <a class="nav-link" [routerLink]="['company']" routerLinkActive="active">Company</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['branch']" routerLinkActive="active"
-                        [queryParams]="{userRole:role}">Branch</a>
+                        >Branch</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="logout()">Logout</a>
+                    <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
                 </li>
             </ul>
 

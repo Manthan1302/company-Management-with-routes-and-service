@@ -7,17 +7,20 @@ import { EmployeeComponent } from './employee/employee.component';
 import { BranchComponent } from './branch/branch.component';
 import { CompanyComponent } from './company/company.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuardService } from './services/authGuard.service';
+import { loginAuthGuardService } from './services/loginAuthGuard.service';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', component: LoginComponent ,canActivate:[loginAuthGuardService], canDeactivate:[AuthGuardService]},
+  { path: 'register', component: RegisterComponent ,canActivate:[loginAuthGuardService]},
   {
     path: 'dashboard', component: DashboardComponent, children: [
       { path: 'employee', component: EmployeeComponent },
       { path: 'branch', component: BranchComponent },
       { path: 'company', component: CompanyComponent },
-    ]
+    ],
+    canActivate:[AuthGuardService]
   },
   { path: "**", component: PageNotFoundComponent }
 
