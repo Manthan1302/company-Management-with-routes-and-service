@@ -30,12 +30,12 @@ export class UserService {
 
     login(index: number) {
         this.userData[index].isLoggedIn = true;
-        localStorage.setItem("loggedInUser", JSON.stringify(this.userData[index]));
-        localStorage.setItem("authKey",JSON.stringify(this.userData[index].isLoggedIn));
+        sessionStorage.setItem("loggedInUser", JSON.stringify(this.userData[index]));
+        sessionStorage.setItem("authKey",JSON.stringify(this.userData[index].isLoggedIn));
     }
     logout() {
-        localStorage.removeItem('loggedInUser');
-        localStorage.removeItem('authKey');
+        sessionStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('authKey');
 
     }
 

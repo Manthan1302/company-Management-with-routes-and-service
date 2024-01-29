@@ -18,13 +18,6 @@
             <td *ngIf="deletePermission"><button class="btn btn-danger" (click)="deleteBranch(item)"><i
                         class="bi bi-trash"></i></button></td>
         </tr>
-
     </tbody>
 </table>
-
-<div class="col-md-3" *ngIf="updateForm">
-    <input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Enter Name" />
-    <br>
-    <button (click)="updateBranch(name)" class="btn btn-success">Update</button>
-
-</div>
+<router-outlet></router-outlet>

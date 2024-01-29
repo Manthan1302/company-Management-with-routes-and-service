@@ -10,14 +10,10 @@ export class loginAuthGuardService implements CanActivate {
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     boolean {
-        if (localStorage.getItem("authKey") === 'true') {
+        if (sessionStorage.getItem("authKey") === 'true') {
             this.route.navigate(['/dashboard'])
             return false
         }
-        
             return true
     }
-
-
-
 }

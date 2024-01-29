@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BranchService } from '../services/branch.service';
 import { User } from '../model/user.model';
@@ -17,9 +18,8 @@ export class BranchComponent {
   index: number | null = null;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
-  updateForm: boolean = false;
   user!: User;
-  constructor(private branchService: BranchService, private route: ActivatedRoute) { }
+  constructor(private branchService: BranchService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -27,21 +27,21 @@ export class BranchComponent {
     this.branch = this.branchService.Branch;
     console.log(this.branch);
     // this.role = this.route.snapshot.queryParamMap.get('userRole');
-    let dataUser= localStorage.getItem('loggedInUser')
+    let dataUser = sessionStorage.getItem('loggedInUser')
     this.user = JSON.parse(dataUser!);
     // console.log(this.role);
 
 
 
-    if (this.user.userRole  === "superAdmin") {
+    if (this.user.userRole === "superAdmin") {
       this.updatePermission = true;
       this.deletePermission = true;
     }
-    if (this.user.userRole  === "admin") {
+    if (this.user.userRole === "admin") {
       this.updatePermission = true;
       this.deletePermission = false;
     }
-    if (this.user.userRole  === "basicUser") {
+    if (this.user.userRole === "basicUser") {
       this.updatePermission = false;
       this.deletePermission = false;
     }
@@ -49,71 +49,14 @@ export class BranchComponent {
 
 
   deleteBranch(data: { id: number, name: string }) {
-    this.index = this.branchService.Branch.findIndex(ele => {
-      return ele.id === data.id && ele.name === data.name
-    })
-    console.log(this.index);
-
-    if (this.index > -1) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-          this.branch.splice(this.index!, 1)
-        }
-      });
-    }
+    this.branchService.deleBranchService(data);
   }
+  
 
   editBranch(data: { id: number, name: string }) {
-    this.updateForm = true
-    this.index = this.branchService.Branch.findIndex(ele => {
-      return ele.id === data.id && ele.name === ele.name
-    })
-    console.log(this.index);
-    this.name = this.branch[this.index].name;
+    this.branchService.editBranchService(data);
+    this.router.navigate([`editBranch`], { relativeTo: this.route, queryParams: { id: this.branchService.index } })
   }
 
-  updateBranch(name: string) {
-    if (this.name === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Enter Details!",
-      });
-      return
-    }
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You Want  to update this!",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Update it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Updated!",
-          text: "Your Data has been Updated.",
-          icon: "success"
-        });
-
-        this.branch[this.index!].name = name
-        this.name = "";
-        this.updateForm = false
-      }
-    });
-  }
 }
 

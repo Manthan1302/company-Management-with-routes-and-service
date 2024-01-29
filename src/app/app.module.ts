@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserService } from './services/user.service';
 import { AuthGuardService } from './services/authGuard.service';
+import { EditBranchComponent } from './branch/edit-branch/edit-branch.component';
+import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
+import { EditCompanyComponent } from './company/edit-company/edit-company.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { AuthGuardService } from './services/authGuard.service';
     EmployeeComponent,
     CompanyComponent,
     BranchComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EditBranchComponent,
+    EditEmployeeComponent,
+    EditCompanyComponent
   ],
   imports: [
     BrowserModule,

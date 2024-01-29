@@ -20,11 +20,5 @@
         </tr>
     </tbody>
 </table>
+<router-outlet></router-outlet>
 
-<div class="col-md-3" *ngIf="updateForm">
-
-    <input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Enter Name" />
-    <br>
-
-    <button (click)="updateCompany(name)" class="btn btn-success">Update</button>
-</div>

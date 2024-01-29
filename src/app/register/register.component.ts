@@ -12,27 +12,62 @@ export class RegisterComponent {
   @ViewChild('name') name!: ElementRef;
   @ViewChild('email') email!: ElementRef;
   @ViewChild('password') pass!: ElementRef;
-  constructor(private router: Router,private userServices:UserService) { }
+  constructor(private router: Router, private userServices: UserService) { }
 
-
-
-  
   RegisterData(name: string, email: string, pass: string) {
+    //not blank validation
     if (name === "" || email === "" || pass === "") {
       Swal.fire({
-        icon: "error",
+        icon: "warning",
         title: "Oops...",
-        text: "Something went wrong!",
- 
+        text: "Fill All Details!",
       });
       return
     }
+    //only alphabets allowd validation
+    if (!name.match("^[A-Za-z]+")) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Enter Valid Name",
+      });
+      return
+    }
+    //email validation
+    if (!email.match("[a-z0-9._%+\-]+@[a-z0-9.\-]+.[a-z]{3}$")) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Enter Valid Email",
+      });
+      return
+    }
+    //name length more than 4 letter validation
+    if (name.length < 4) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Please Enter more than 4 letter ",
+      });
+      return
+    }
+    //password length more than 6 letter validation
+
+    if (pass.length < 6) {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Please Enter more than 6 letter ",
+      });
+      return
+    }
+    
     Swal.fire({
       icon: "success",
       title: "Registration",
       text: " Congratulation!! Registration Successfully!",
     });
-    this.userServices.register(name,email,pass);
+    this.userServices.register(name, email, pass);
     this.name.nativeElement.value = ""
     this.email.nativeElement.value = ""
     this.pass.nativeElement.value = ""

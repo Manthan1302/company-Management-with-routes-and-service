@@ -1,7 +1,8 @@
+import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CompanyService } from '../services/compny.service';
 import { User } from '../model/user.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -18,9 +19,9 @@ export class CompanyComponent {
   // role: string | null = null;
   index: number | null = null;
   updateForm: boolean = false;
-  user!:User;
+  user!: User;
 
-  constructor(private companyService: CompanyService, private route: ActivatedRoute) { }
+  constructor(private companyService: CompanyService, private route: ActivatedRoute,private router:Router) { }
 
 
   ngOnInit(): void {
@@ -29,19 +30,19 @@ export class CompanyComponent {
     this.company = this.companyService.Company;
     // console.log(this.company);
     // this.role = this.route.snapshot.queryParamMap.get('userRole');
-    let dataUser= localStorage.getItem('loggedInUser')
+    let dataUser = sessionStorage.getItem('loggedInUser')
     this.user = JSON.parse(dataUser!);
 
 
-    if (this.user.userRole  === "superAdmin") {
+    if (this.user.userRole === "superAdmin") {
       this.updatePermission = true;
       this.deletePermission = true;
     }
-    if (this.user.userRole  === "admin") {
+    if (this.user.userRole === "admin") {
       this.updatePermission = true;
       this.deletePermission = false;
     }
-    if (this.user.userRole  === "basicUser") {
+    if (this.user.userRole === "basicUser") {
       this.updatePermission = false;
       this.deletePermission = false;
     }
@@ -49,77 +50,13 @@ export class CompanyComponent {
 
 
   deleteCompany(data: { id: number, name: string }) {
-    this.index = this.companyService.Company.findIndex(ele => {
-      return ele.id === data.id && ele.name === data.name
-    })
-    console.log(this.index);
-
-    if (this.index > -1) {
-
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-          //delete 
-          this.company.splice(this.index!, 1)
-
-        }
-      });
-
-    }
+    this.companyService.deleteCompanyBranch(data);
   }
 
 
   editCompany(data: { id: number, name: string }) {
-    this.updateForm = true
-    this.index = this.companyService.Company.findIndex(ele => {
-      return ele.id === data.id && ele.name === ele.name
-    })
-    console.log(this.index);
-    this.name = this.company[this.index].name;
-  }
-
-  updateCompany(name: string) {
-    if (this.name === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Enter Details!",
-      });
-      return
-    }
-
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You Want  to update this!",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Update it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Updated!",
-          text: "Your Data has been Updated.",
-          icon: "success"
-        });
-
-        this.company[this.index!].name = name
-        this.name = "";
-        this.updateForm = false;
-      }
-    });
+    this.companyService.editCompanyService(data);
+    this.router.navigate([`editCompany`], { relativeTo: this.route, queryParams: { id: this.companyService.index } })
 
   }
 }

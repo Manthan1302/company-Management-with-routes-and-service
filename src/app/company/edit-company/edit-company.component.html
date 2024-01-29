@@ -1,0 +1,9 @@
+<div class="col-md-3">
+
+    <input type="text" name="name" [(ngModel)]="name" class="form-control" placeholder="Enter Name" #updatedName/>
+    <br>
+
+    <button (click)="updateCompany(updatedName.value)" class="btn btn-success">Update</button>
+    <button class="btn btn-danger" routerLink="/dashboard/company">Cancel</button>
+
+</div>

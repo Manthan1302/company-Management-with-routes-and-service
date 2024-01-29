@@ -10,9 +10,9 @@ import Swal from 'sweetalert2'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  pass:string ='';
-  name:string ='';
-  isSubmitted:boolean = false;
+  pass: string = '';
+  name: string = '';
+  isSubmitted: boolean = false;
 
   constructor(private route: Router, private userService: UserService) { }
   userData: User[] = []
@@ -31,15 +31,14 @@ export class LoginComponent {
     console.log(index);
     if (name === "" || pass === "") {
       Swal.fire({
-        icon: "error",
+        icon: "warning",
         title: "Oops...",
         text: " Enter Valid Details!",
       });
     }
-
     if (index == -1) {
       Swal.fire({
-        icon: "error",
+        icon: "warning",
         title: "Oops...",
         text: " Enter Valid Details!",
       });
@@ -50,20 +49,22 @@ export class LoginComponent {
         title: "Login",
         text: " Congratulation!! Login Successfully!",
       });
-      this.isSubmitted=true;
+      this.isSubmitted = true;
       this.userService.login(index);
       this.userData[index].isLoggedIn = true;
-      this.route.navigate(['/dashboard'], { queryParams: { userRole: this.userData[index].userRole } });
+      this.route.navigate(['/dashboard/employee']);
     }
+    this.name="";
+    this.pass = "";
   }
 
 
-  canExit(){
-    if((this.name || this.pass) && this.isSubmitted){
+  canExit() {
+    if ((this.name || this.pass) && this.isSubmitted) {
       return confirm('you have unsaved Changes. Do you want to navigate ?')
 
     }
-    else{
+    else {
       return true;
     }
   }
