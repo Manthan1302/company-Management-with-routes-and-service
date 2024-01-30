@@ -8,7 +8,9 @@ export class UserService {
             email: "admin@gmal.com",
             password: "1234",
             userRole: "admin",
-            isLoggedIn: false
+            isLoggedIn: false,
+            permission: ["branch","employee"]
+
         },
         {
             id: 2,
@@ -16,13 +18,13 @@ export class UserService {
             email: "superadmin@gmal.com",
             password: "1234",
             userRole: "superAdmin",
-            isLoggedIn: false
-
+            isLoggedIn: false,
+            permission:["employee","company","branch"]
         },
     ]
 
     register(name: string, email: string, pass: string) {
-        this.userData.push({ id: this.userData.length + 1, name: name, email: email, password: pass, userRole: "basicUser", isLoggedIn: false })
+        this.userData.push({ id: this.userData.length + 1, name: name, email: email, password: pass, userRole: "basicUser", isLoggedIn: false ,permission:["company"]})
         console.log(this.userData);
         localStorage.setItem('Users', JSON.stringify(this.userData));
 
@@ -31,7 +33,7 @@ export class UserService {
     login(index: number) {
         this.userData[index].isLoggedIn = true;
         sessionStorage.setItem("loggedInUser", JSON.stringify(this.userData[index]));
-        sessionStorage.setItem("authKey",JSON.stringify(this.userData[index].isLoggedIn));
+        sessionStorage.setItem("authKey", JSON.stringify(this.userData[index].isLoggedIn));
     }
     logout() {
         sessionStorage.removeItem('loggedInUser');

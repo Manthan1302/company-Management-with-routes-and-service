@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router, CanDeactivate, UrlTree } from "@angular/router";
 import { LoginComponent } from "../login/login.component";
 import { Observable } from "rxjs";
+import { User } from "../model/user.model";
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Observable } from "rxjs";
 export class AuthGuardService implements CanActivate {
     constructor(private route: Router) { }
 
-
+ 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         boolean {
         if (sessionStorage.getItem("authKey") === 'true') {
@@ -19,7 +20,6 @@ export class AuthGuardService implements CanActivate {
         else {
             this.route.navigate(['/'])
             return false
-
         }
     }
 
@@ -27,7 +27,7 @@ export class AuthGuardService implements CanActivate {
     canDeactivate(component: LoginComponent, currentRoute: ActivatedRouteSnapshot,
         currentState: RouterStateSnapshot, nextState: RouterStateSnapshot):
         boolean {
-        return component.canExit()
+        return component.canExit();
     }
 
 

@@ -12,10 +12,11 @@ import { AuthGuardService } from './services/authGuard.service';
 import { loginAuthGuardService } from './services/loginAuthGuard.service';
 import { EditBranchComponent } from './branch/edit-branch/edit-branch.component';
 import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
+import { PermissionGuardServices } from './services/permissionguard.service';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [loginAuthGuardService], canDeactivate: [AuthGuardService] },
+  { path: '', component: LoginComponent, canActivate: [loginAuthGuardService], canDeactivate: [AuthGuardService]},
   { path: 'register', component: RegisterComponent, canActivate: [loginAuthGuardService] },
   {
     path: 'dashboard', component: DashboardComponent, children: [
@@ -24,20 +25,23 @@ const routes: Routes = [
           {
             path: 'editEmployee', component: EditEmployeeComponent
           }
-        ]
+        ],data:{role:"employee"},canActivate:[PermissionGuardServices]
+        
       },
       {
         path: 'branch', component: BranchComponent, children: [
           { path: 'editBranch', component: EditBranchComponent }
-        ]
+        ],data:{role:"branch"},canActivate:[PermissionGuardServices]
+        
       },
       {
         path: 'company', component: CompanyComponent, children: [
           { path: 'editCompany', component: EditCompanyComponent }
-        ]
+        ],data:{role:"company"},canActivate:[PermissionGuardServices]
+        
       },
-    ],
-    canActivate: [AuthGuardService]
+    ]
+    ,canActivate: [AuthGuardService]
   },
   { path: "**", component: PageNotFoundComponent }
 

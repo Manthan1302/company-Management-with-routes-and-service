@@ -30,8 +30,13 @@ export class EmployeeComponent {
     console.log(this.employee);
 
     // this.role = this.route.snapshot.queryParamMap.get('userRole');
-
-
+    // this.route.data.subscribe(
+    //   (d)=>{
+    //     this.role=d['role']
+    //   }
+    // )
+    //   console.log(this.role);
+      
 
     if (this.user.userRole === "superAdmin") {
       this.updatePermission = true;

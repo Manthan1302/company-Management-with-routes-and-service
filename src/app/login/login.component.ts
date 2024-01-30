@@ -52,7 +52,7 @@ export class LoginComponent {
       this.isSubmitted = true;
       this.userService.login(index);
       this.userData[index].isLoggedIn = true;
-      this.route.navigate(['/dashboard/employee']);
+      this.route.navigate(['/dashboard']);
     }
     this.name="";
     this.pass = "";
@@ -60,9 +60,8 @@ export class LoginComponent {
 
 
   canExit() {
-    if ((this.name || this.pass) && this.isSubmitted) {
+    if ((this.name || this.pass) && !this.isSubmitted) {
       return confirm('you have unsaved Changes. Do you want to navigate ?')
-
     }
     else {
       return true;

@@ -5,4 +5,5 @@ export class User {
     password: string | null = null;
     userRole: string | null = null;
     isLoggedIn: boolean | null = null;
+    permission:string []= []
 }
