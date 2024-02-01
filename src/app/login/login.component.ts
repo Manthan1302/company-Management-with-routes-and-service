@@ -1,8 +1,9 @@
 import { UserService } from './../services/user.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,12 @@ export class LoginComponent {
   pass: string = '';
   name: string = '';
   isSubmitted: boolean = false;
-
+  @ViewChild('LoginForm') form! : NgForm;
   constructor(private route: Router, private userService: UserService) { }
   userData: User[] = []
 
   Login(name: string, pass: string) {
+    console.log(this.form);
 
     let data = localStorage.getItem('Users')
     // console.log(typeof(data));
@@ -54,7 +56,7 @@ export class LoginComponent {
       this.userData[index].isLoggedIn = true;
       this.route.navigate(['/dashboard']);
     }
-    this.name="";
+    this.name = "";
     this.pass = "";
   }
 
@@ -68,5 +70,5 @@ export class LoginComponent {
     }
   }
 
-  
+
 }

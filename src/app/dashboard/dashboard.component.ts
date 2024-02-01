@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router, } from '@angular/router';
+import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationStart, Params, Router, } from '@angular/router';
 import { User } from '../model/user.model';
 
 @Component({
@@ -23,10 +23,13 @@ export class DashboardComponent {
       if(routerEvent instanceof NavigationStart){
         this.showLoader=true
       }
+      if(routerEvent instanceof NavigationCancel){
+        this.showLoader=false
+      }
       if(routerEvent instanceof NavigationEnd){
         this.showLoader=false
-
       }
+        
     })
   }
 }

@@ -3,6 +3,7 @@ import { User } from '../model/user.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { UserService } from '../services/user.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,9 +13,12 @@ export class RegisterComponent {
   @ViewChild('name') name!: ElementRef;
   @ViewChild('email') email!: ElementRef;
   @ViewChild('password') pass!: ElementRef;
+  @ViewChild('registerForm')fom!:NgForm;
   constructor(private router: Router, private userServices: UserService) { }
 
   RegisterData(name: string, email: string, pass: string) {
+    console.log(this.fom);
+    
     //not blank validation
     if (name === "" || email === "" || pass === "") {
       Swal.fire({

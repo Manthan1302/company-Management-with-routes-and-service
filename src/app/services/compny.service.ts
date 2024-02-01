@@ -108,6 +108,7 @@ export class CompanyService {
 
     }
 
+
     getAllCompany() {
         return new Observable<Company[]>((sub) => {
             setTimeout(() => {
@@ -115,4 +116,6 @@ export class CompanyService {
             }, 1000)
         })
     }
+
+    
 }

@@ -8,28 +8,29 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                            <form>
+                            <form (ngSubmit)="RegisterData(name.value,email.value,password.value)"
+                                #registerForm="ngForm">
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form3Example1cg">Your Name</label>
-                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"
-                                        #name  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"/>
+                                    <input type="text" id="form3Example1cg" name="name"
+                                        class="form-control form-control-lg" #name ngModel required />
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form3Example3cg">Your Email</label>
-                                    <input type="email" id="form3Example3cg" class="form-control form-control-lg"
-                                        #email />
+                                    <input type="email" id="form3Example3cg" name="email"
+                                        class="form-control form-control-lg" #email ngModel required />
                                 </div>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="form3Example4cg">Password</label>
-                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg"
-                                        #password />
+                                    <input type="password" id="form3Example4cg" name="password"
+                                        class="form-control form-control-lg" #password ngModel required />
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="button"
+                                    <button type="submit"
                                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                                        (click)="RegisterData(name.value,email.value,password.value)">Register</button>
+                                        [disabled]="!registerForm.valid">Register</button>
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a routerLink=""
