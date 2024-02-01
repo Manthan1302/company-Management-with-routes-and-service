@@ -16,7 +16,7 @@ import { PermissionGuardServices } from './services/permissionguard.service';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [loginAuthGuardService], canDeactivate: [AuthGuardService]},
+  { path: '', component: LoginComponent, canActivate: [loginAuthGuardService], canDeactivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent, canActivate: [loginAuthGuardService] },
   {
     path: 'dashboard', component: DashboardComponent, children: [
@@ -25,23 +25,23 @@ const routes: Routes = [
           {
             path: 'editEmployee', component: EditEmployeeComponent
           }
-        ],data:{role:"employee"},canActivate:[PermissionGuardServices]
-        
+        ], data: { role: "employee" }, canActivate: [PermissionGuardServices]
+
       },
       {
         path: 'branch', component: BranchComponent, children: [
           { path: 'editBranch', component: EditBranchComponent }
-        ],data:{role:"branch"},canActivate:[PermissionGuardServices]
-        
+        ], data: { role: "branch" }, canActivate: [PermissionGuardServices]
+
       },
       {
         path: 'company', component: CompanyComponent, children: [
           { path: 'editCompany', component: EditCompanyComponent }
-        ],data:{role:"company"},canActivate:[PermissionGuardServices]
-        
+        ], data: { role: "company" }, canActivate: [PermissionGuardServices], resolve: { company: PermissionGuardServices },
+
       },
     ]
-    ,canActivate: [AuthGuardService]
+    , canActivate: [AuthGuardService]
   },
   { path: "**", component: PageNotFoundComponent }
 

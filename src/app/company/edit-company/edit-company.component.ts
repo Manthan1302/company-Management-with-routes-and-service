@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 
 export class EditCompanyComponent {
-  name!: string;
+  name!: string | null;
   user!: User;
   index: number | null = null;
   constructor(private companyService: CompanyService, private route: ActivatedRoute, private router: Router) { }

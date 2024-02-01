@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Router, CanDe
 import { LoginComponent } from "../login/login.component";
 import { Observable } from "rxjs";
 import { User } from "../model/user.model";
+import { CompanyService } from "./compny.service";
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthGuardService implements CanActivate {
     constructor(private route: Router) { }
 
  
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,):
         boolean {
         if (sessionStorage.getItem("authKey") === 'true') {
             return true
@@ -22,7 +23,6 @@ export class AuthGuardService implements CanActivate {
             return false
         }
     }
-
 
     canDeactivate(component: LoginComponent, currentRoute: ActivatedRouteSnapshot,
         currentState: RouterStateSnapshot, nextState: RouterStateSnapshot):

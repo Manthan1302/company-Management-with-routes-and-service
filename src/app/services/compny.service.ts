@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import Swal from "sweetalert2";
+import { Company } from "../model/company.model";
 @Injectable()
 export class CompanyService {
     index: number | null = null;
-    name!: string;
-    Company = [
+    name!: string | null;
+    Company: Company[] = [
         {
             id: 1,
             name: 'abc',
@@ -27,7 +29,7 @@ export class CompanyService {
             name: 'fgh',
         },
     ]
-    constructor(private router:Router){}
+    constructor(private router: Router) { }
 
 
     editCompanyService(data: { id: number, name: string }) {
@@ -67,7 +69,7 @@ export class CompanyService {
 
                 this.Company[this.index!].name = name
                 this.router.navigate(["dashboard/company"])
-            
+
             }
         });
 
@@ -104,5 +106,13 @@ export class CompanyService {
 
         }
 
+    }
+
+    getAllCompany() {
+        return new Observable<Company[]>((sub) => {
+            setTimeout(() => {
+                sub.next(this.Company)
+            }, 1000)
+        })
     }
 }

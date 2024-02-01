@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params, } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router, } from '@angular/router';
 import { User } from '../model/user.model';
 
 @Component({
@@ -11,14 +11,22 @@ export class DashboardComponent {
 
   role: string | null = null;
   login:string|null=null;
-  constructor(private route: ActivatedRoute) { }
+  showLoader : boolean = false;
+  constructor(private route: ActivatedRoute,private router:Router) { }
+  
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.role = this.route.snapshot.queryParamMap.get('userRole');
-    // console.log(this.login);
     
-    // console.log(this.role);
+    this.router.events.subscribe((routerEvent)=>{
+      if(routerEvent instanceof NavigationStart){
+        this.showLoader=true
+      }
+      if(routerEvent instanceof NavigationEnd){
+        this.showLoader=false
 
+      }
+    })
   }
 }

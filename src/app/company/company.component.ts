@@ -21,13 +21,18 @@ export class CompanyComponent {
   updateForm: boolean = false;
   user!: User;
 
-  constructor(private companyService: CompanyService, private route: ActivatedRoute,private router:Router) { }
+  constructor(private companyService: CompanyService, private route: ActivatedRoute, private router: Router) { }
 
 
   ngOnInit(): void {
-    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    // Add 'implements OnInit' to the class.
-    this.company = this.companyService.Company;
+
+    // this.companyService.getAllCompany().subscribe(
+    //   (data:any) => {
+    //     this.company = data;
+    //   }
+    // );
+
+   this.company = this.route.snapshot.data['company'];
     // console.log(this.company);
     // this.role = this.route.snapshot.queryParamMap.get('userRole');
     let dataUser = sessionStorage.getItem('loggedInUser')
