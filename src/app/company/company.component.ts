@@ -32,7 +32,7 @@ export class CompanyComponent {
     //   }
     // );
 
-   this.company = this.route.snapshot.data['company'];
+    this.company = this.route.snapshot.data['company'];
     // console.log(this.company);
     // this.role = this.route.snapshot.queryParamMap.get('userRole');
     let dataUser = sessionStorage.getItem('loggedInUser')
@@ -57,7 +57,11 @@ export class CompanyComponent {
   deleteCompany(data: { id: number, name: string }) {
     this.companyService.deleteCompanyBranch(data);
   }
-
+  
+  setdata(data: { id: number, name: string }) {
+    this.companyService.recive(data);
+    
+  } 
 
   editCompany(data: { id: number, name: string }) {
     this.companyService.editCompanyService(data);

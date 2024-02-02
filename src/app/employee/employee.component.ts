@@ -3,6 +3,8 @@ import { EmployeeService } from '../services/employee.service';
 import { User } from '../model/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { Employee } from '../model/employee';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-employee',
@@ -12,19 +14,21 @@ import Swal from 'sweetalert2'
 export class EmployeeComponent {
 
   name!: string;
-  employee: { id: number, name: string }[] = []
+  employee: Employee[] = []
   index: number | null = null;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   role: string | null = null;
   updateForm: boolean = false;
   user!: User;
-  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router) { }
 
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router) { }
+  
   ngOnInit(): void {
+    this.getEmployee()
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.employee = this.employeeService.employee;
+    // this.employee = this.employeeService.employee;
     let dataUser = sessionStorage.getItem('loggedInUser')
     this.user = JSON.parse(dataUser!);
     console.log(this.employee);
@@ -36,7 +40,7 @@ export class EmployeeComponent {
     //   }
     // )
     //   console.log(this.role);
-      
+
 
     if (this.user.userRole === "superAdmin") {
       this.updatePermission = true;
@@ -54,12 +58,32 @@ export class EmployeeComponent {
 
 
 
-  deleteEmployee(data: { id: number, name: string }) {
+  deleteEmployee(data: Employee) {
     this.employeeService.deleteEmployeeService(data);
   }
 
-  editEmployee(data: { id: number, name: string }) {
+  editEmployee(data: Employee) {
     this.employeeService.editEmployeeService(data);
     this.router.navigate(['editEmployee'], { relativeTo: this.route, queryParams: { id: this.employeeService.index } })
+  }
+
+
+
+  getEmployee(){
+    this.employeeService.getEmployeeData().pipe(filter((val,i)=>{
+
+      console.log(val);
+      console.log(i+1);
+      
+      
+      console.log(val[i].id);
+      
+      return val[i].id! == 1
+      
+    })).subscribe(res=>{
+      this.employee=res;
+      console.log(this.employee);
+      
+    })
   }
 }

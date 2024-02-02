@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import Swal from "sweetalert2";
+import { Employee } from "../model/employee";
 
 @Injectable()
 export class EmployeeService {
@@ -43,7 +45,7 @@ export class EmployeeService {
         },
     ]
 
-    deleteEmployeeService(data: { id: number, name: string }) {
+    deleteEmployeeService(data: Employee) {
         this.index = this.employee.findIndex(ele => {
             return ele.id === data.id && ele.name === data.name
         })
@@ -71,7 +73,7 @@ export class EmployeeService {
         }
     }
 
-    editEmployeeService(data: { id: number, name: string }) {
+    editEmployeeService(data: Employee) {
         this.index = this.employee.findIndex(ele => {
             return ele.id === data.id && ele.name === ele.name
         })
@@ -108,5 +110,14 @@ export class EmployeeService {
 
             }
         });
+    }
+
+    getEmployeeData():Observable<Employee[]>{
+        let data = new Observable<Employee[]>(e=>{
+            setTimeout(()=>{
+                e.next(this.employee);
+            },1000);
+        });
+        return data;
     }
 }

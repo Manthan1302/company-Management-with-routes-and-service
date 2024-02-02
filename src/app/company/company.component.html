@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th></th>
@@ -10,6 +11,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of company">
+            <td><a (click)="setdata(item)"><i class="bi bi-star text-warning"></i></a></td>
             <td scope="row">{{item.id}}</td>
             <td>{{item.name}}</td>
             <td *ngIf="updatePermission"><button class="btn btn-primary" (click)="editCompany(item)"><i

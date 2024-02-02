@@ -13,6 +13,7 @@ import { loginAuthGuardService } from './services/loginAuthGuard.service';
 import { EditBranchComponent } from './branch/edit-branch/edit-branch.component';
 import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
 import { PermissionGuardServices } from './services/permissionguard.service';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,9 @@ const routes: Routes = [
           { path: 'editCompany', component: EditCompanyComponent }
         ], data: { role: "company" }, canActivate: [PermissionGuardServices], resolve: { company: PermissionGuardServices },
 
+      },
+      {
+        path: 'favorite', component: FavouritesComponent,
       },
     ]
     , canActivate: [AuthGuardService]

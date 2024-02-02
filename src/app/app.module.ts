@@ -21,6 +21,7 @@ import { EditBranchComponent } from './branch/edit-branch/edit-branch.component'
 import { EditEmployeeComponent } from './employee/edit-employee/edit-employee.component';
 import { EditCompanyComponent } from './company/edit-company/edit-company.component';
 import { PermissionGuardServices } from './services/permissionguard.service';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PermissionGuardServices } from './services/permissionguard.service';
     PageNotFoundComponent,
     EditBranchComponent,
     EditEmployeeComponent,
-    EditCompanyComponent
+    EditCompanyComponent,
+    FavouritesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import Swal from "sweetalert2";
 import { Company } from "../model/company.model";
 @Injectable()
 export class CompanyService {
     index: number | null = null;
     name!: string | null;
+    // companySetSubject = new BehaviorSubject<{ id: number, name: string }>({id:0 , name:""});
+    companySetSubject = new Subject<{ id: number, name: string }>();
+
     Company: Company[] = [
         {
             id: 1,
@@ -32,6 +35,11 @@ export class CompanyService {
     constructor(private router: Router) { }
 
 
+    recive(data: { id: number, name: string }) {
+        this.companySetSubject.next(data)
+    
+    
+    }
     editCompanyService(data: { id: number, name: string }) {
 
         this.index = this.Company.findIndex(ele => {
@@ -117,5 +125,5 @@ export class CompanyService {
         })
     }
 
-    
+
 }
